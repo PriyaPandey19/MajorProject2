@@ -54,12 +54,14 @@ app.get('/about',(req,res) =>{
 
 
 
+const PORT = process.env.PORT|| 3000;
 mongoose
 .connect(process.env.ATLASDB_URL)
-.then(() => console.log("connected to MongoDB Atlas"))
+.then(() => {console.log("connected to MongoDB Atlas");
+app.listen(PORT, () => console.log(`server running on port ${PORT}`)); 
+})
 .catch((err) => console.error("MongoDB connect error:", err));
 
 // app.use("/api/notes",noteRoutes);
 
-const PORT = process.env.PORT|| 3000;
-app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+
