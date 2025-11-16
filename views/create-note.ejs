@@ -1,0 +1,285 @@
+
+
+    <main>
+    <div class="container">
+    <h1>Create a secure Note</h1>
+     <% if (message) { %>
+            <p><strong><%= message %></strong></p>
+        <% } %>
+
+           
+
+        <form action="/create" method="POST">
+       <label>Note Text: </label><br>
+       <textarea name="text" rows="5" cols="30"required></textarea><br><br>
+
+       <label>Secret Key:</label><br>
+       <input type="text" name="secretKey" required><br><br>
+
+       <label>Expire in Minutes:</label>
+       <input type="number" name="expireMinutes" value="10" required><br><br>
+       
+       <button type="submit">Create Note</button>
+    </form>
+   </div>   
+
+   <div class="bottom-card">
+     <div class="share-box">
+                <p id="share-box-title">Share this link with someone:<span id="countdown-timer"></span></p>
+                <div id="link-controls-target" class="link-controls">
+                    <p id="initial-message">Link will appear here after creation.</p>
+                      </div>
+                       </div>
+
+            <% if (shareLink) { %>            
+                <input type="hidden" id="hiddenShareLink" value="<%= shareLink %>">
+                <input type="hidden" id="hiddenExpireMinutes"value="<%= expireMinutes %>">
+                  <% } %> 
+    
+   </div>
+
+   <div class="feature-section" style="background-color: #121212; border:none">
+    <h2 class="feature-title" id="faq">📜 FAQ(Frequently Asked Questions)</h2>
+    <div class="faq-container">
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What is NoteCrypt?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+                <p>NoteCrypt is an educational web application prototype demonstratingsecure, ephemeral note sharing using zero-knowledge,client-side AES-256 encryption model.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What kind of encryption does NoteCrypt use?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+                <p>NoteCrypt uses **AES-256** (Advanced Encryption Standard with a 256-bit ket) for client-side encryption.Thisis a industry-standard, robust algorithm used to demonstarate the principle of strong cryptography in web applications.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Is my "Secret Key" saved on your server?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+                <p>No.We operate under a **zer-knowledge policy**.The encryption key(the Secret key) is **never** sent to our server.It is embedded only in the shareable URL fragment ,meaning it stays strictly on the client-side and the recipient's browser.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What exactly happens when a note is "Auto Deleted"?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+                <p>The moment the note's decryption route is successfully loaded, the server immediately executes a permanent deletion query.Both the encrypted content and the unique note ID are ** purged instantly**,ensuring the link cannot be used again and no data is retained.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Can I recover a note if the recipient hasn't  viewed it?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+               <p>No, there is no recovery mechanism once the note is created.You must save the unique share link immediately.If the time expires or the note is deleted.it's permanently gone.</p> 
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What happens if the time expires before the note is viewed?</h3>
+                <span>▶</span>
+            </div>
+            <div class="faq-answer">
+                <p>The note is automatically and permanently deleted from the database upon expiration, even if the recipient hasn't opened the link.This isa fail-safe mechanism to prevent long-term exposure of the excrypted data, ensuring strict ephemeral privacy.</p>
+            </div>
+        </div>
+
+        
+      
+
+
+    </div>
+   </div>
+
+<div class="container static-content-page">
+    <h1 style="text-align: center; color: var(--clr-accent);"id="contact-us">💬Contact Us</h1>
+
+    <p class="intro-text">
+        Have a question, feedback, or need technical support? Please fill out the form below, and we'll get back to you as soon as possible.
+    </p>
+
+    <form action="/submit-contact"method="POST" class="contact-form">
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name"name="name"required><br><br>
+
+         <label for="email">Your Email:</label><br>
+        <input type="email" id="email"name="email"required><br><br>
+
+         <label for="subject">Subject:</label><br>
+        <input type="text" id="subject"name="subject"required><br><br>
+
+         <label for="message">Message:</label><br>
+        <textarea type="message" id="message"name="name" rows="7"required></textarea><br><br>
+
+        <button type="submit">Send Message</button>
+
+    </form>
+</div>
+
+
+
+  </main>
+           
+   <script>
+
+    function copyLink(inputId){
+        const input = document.getElementById(inputId);
+        input.select();
+        input.setSelectionRange(0,99999);
+        navigator.clipboard.writeText(input.value);
+        alert("Link copied to clipboard!");
+    }
+
+
+    function startCountDown(minutes){
+        const endTime = Date.now() + minutes * 60 *1000;
+        const timeDisplay = document.getElementById('countdown-timer');
+
+        if (!timeDisplay) return;
+
+        function updateTimer(){
+            const now = Date.now();
+            const timeRemaining = endTime - now;
+
+        if(timeRemaining <= 0){
+            clearInterval(countdownInterval);
+            timeDisplay.textContent = "(EXPIRED)";
+            return;
+        } 
+        const totalSeconds = Math.floor(timeRemaining/ 1000);
+        const mins = Math.floor(totalSeconds/60);
+        const secs = totalSeconds % 60;
+        
+        const formattedMins = String(mins).padStart(2, '0');
+        const formattedSecs = String(secs).padStart(2, '0');
+
+        timeDisplay.textContent = `(Expires in ${formattedMins}: ${formattedSecs})`;
+        }
+        const countdownInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    }
+
+
+
+    function setupShareLink(){
+        const shareLinkElement = document.getElementById('hiddenShareLink');
+        const targetDiv = document.getElementById('link-controls-target');
+        const initialMsg = document.getElementById('initial-message');
+
+        // const expireInput = document.querySelector('input[name="expireMinutes"]');
+        // const initialMinutes =expireInput ? parseInt(expireInput.value):0 ;
+        const hiddenMinutesElement = document.getElementById('hiddenExpireMinutes');
+    const initialMinutes = hiddenMinutesElement ? parseInt(hiddenMinutesElement.value) : 0;
+
+        if(shareLinkElement && targetDiv){
+            const link = shareLinkElement.value;
+
+            //remove the inital msg 
+            if(initialMsg){
+                initialMsg.remove();
+            }
+            targetDiv.innerHTML =`
+            <input type="text" id="shareLinkInput" value="${link}" readonly> 
+            <button class="copy-btn" onclick="copyLink('shareLinkInput')">Copy Link</button>
+            <button class="share-btn"onclick="shareNote('${link}')">
+            <i class="fas fa-share-alt"></i>
+                </button>
+            `;
+
+            if(initialMinutes > 0){
+                startCountDown(initialMinutes);
+            }
+        }
+    }
+    setupShareLink();
+
+    if (window.history.replaceState && document.getElementById('hiddenShareLink')) {
+                    // Create a clean URL without any query parameters
+                    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    
+                    // Replace the current history entry, so a refresh loads the clean URL
+                    window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+                }
+
+    //hide the link section user resubmit the form
+    function hideLinkSection(){
+        const section = document.getElementById("linkSection");
+        if(section){
+            section.style.display = "none";
+        }
+    }
+
+
+   //start FAQ according functionality
+   document.addEventListener('DOMContentLoaded',() =>{
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question =>{
+        question.addEventListener('click',() =>{
+            const faqItem = question.closest('.faq-item');
+
+            faqItem.classList.toggle('active');
+
+            faqQuestions.forEach(otherQuestion=>{
+                const otherItem = otherQuestion.closest('.faq-item');
+
+                if(otherItem !== faqItem && otherItem.classList.contains('active')){
+                    otherItem.classList.remove('active');
+                }
+            });
+        });
+    });
+   });
+
+   function shareNote(link){
+    const shareLink = 'I sent you a secure, self-destructing note. View it here:';
+    if(navigator.share){
+        try{
+            navigator.share({
+            title:'NoteCrypt Secure Note',
+            text:shareLink,
+            url:link,
+        });
+        console.log("Secure note shared successfully");
+        }catch(error){
+           console.log('Error sharing the note:',error); 
+           copyLink('shareLinkInput');
+           alert("sharing cancelled or failed.Link copied to clipboard");
+        }
+       
+        // .then(() => console.log('Successful share'))
+        // .catch((error) =>{
+        //   console.log('Error sharing',error);
+        //   copyLink('shareLinkInput');
+        //   alert("Share dialog failed.The link has been copied to clipboard.");
+        // });
+    }else{
+        copyLink('shareLinkInput');
+        alert("Share dialog not supported.The link has been copied to your clipboard.");
+    }
+   }
+
+   </script>
+      
+
+</html>

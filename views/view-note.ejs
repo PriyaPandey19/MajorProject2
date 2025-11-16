@@ -1,0 +1,32 @@
+<main>
+  <div class="container">
+    <h1>View a Secure Note</h1>
+
+    <% if(message) { %>
+       <p><strong><%= message %></strong></p>
+   <% } %>
+
+   <% if(decryptedText){ %>
+      <p><strong>Decrypted Note:</strong></p>
+      <p><%= decryptedText %></p>
+  <% } %>
+
+  <% if(noteId && !decryptedText){ %>
+  <form action ="/view" method="POST">
+    <input type="hidden" name="noteId"placeholder="Note ID"value="<%= noteId %>"><br><br>
+    <label for ="secretKey">Secret Key:</label>
+    <input type="text"name="secretKey"placeholder="Secret Key" required><br><br>
+
+    <button type="submit">View Note</button>
+  </form>
+  <% } else if (!decryptedText) { %>
+    <form action ="/view" method="POST">
+        <input type="text" name="noteId" placeholder="Note ID" required><br><br>
+        <input type="text" name="secretKey" placeholder="Secret Key" required><br><br>
+        <button type="submit">View Note</button>
+    </form>
+  <% } %>
+
+  </div>
+</main>
+</html>

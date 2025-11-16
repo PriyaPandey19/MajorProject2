@@ -1,0 +1,117 @@
+<main>
+    <div class="container static-content-page">
+        <h1>NoteCrypt Features</h1>
+
+        <p class="intro-text">
+            NoteCrypt is built with security and privacy as the core priority.Here's what makes our service unique:
+        </p>
+
+        <div class="feature-section">
+            <h2 class="feature-title" id="auto-delete">🔒 Auto Delete</h2>
+            <p class="feature-description">
+                Every note you create is ephemeral. Once the note is viewed by the recipient, it is immediately and permanently destroyed from our database, ensuring zero data retention after consumption.
+            </p>
+            <p class="intro-text">
+                Every note created on NoteCrypt is inherently designed to be temporary and self-destructing, ensuring that sensitive information leaves xero digital trace after consumption.
+            </p>
+            <h3 class="section-subheading">How it Works</h3>
+            <p class="feature-description">
+                The moment your recipient opens the secure link, our server triggers an immediate and permanent deletion command.The original encrypted note, along with the decryption key, is **purged form our database instntlt**.The link is then permanently disabled.
+            </p>
+            <h3 class="section-subheading">Enhanced Security & Control</h3>
+            <ul>
+                <li>
+                    <strong>Zero Data Rentention:</strong> After deletion,there is absolutely no record of the note's content or the decryption key remaining on our servers. This is crucial for privacy.
+                </li>
+                <li>
+                    <strong>Time-Based Expiry:</strong>As a fail-safe, you can specify an expiration time(in minutes),If the note is not viewed this time elapses, it is automatically and permanently destroyed, preventing long-term exposure.
+                </li>
+                <li>
+                <strong>Single-View Enforcement:</strong>The 'Auto Delete' mechanism guarantees that the content can only be accessed once, making it ideal for sharing passwords, verification codes,or other one time secrets.
+                </li>
+            </ul>
+
+            <h3 class="section-subheading">User Assurance</h3>
+            <p class="feature-description">
+                You will receive a confirmation message after a note has been successfully created.Once the note is viewed and destroyed, you can be confident that the data is gone forever, fulfilling the promise of true ephemerality. 
+            </p>
+        </div>  
+        </div>  
+   
+
+     <div class="container static-content-page">
+         <div class="feature-section">
+            <h2 class="feature-title" id="privacy-protection">🛡️ Privacy Protection</h2>
+            <p class="feature-description">
+                Your notes are encrypted using a secret key *before* they even leave your browser. We never see your secret key, making it impossible for anyone, including us,to decrypt the note without it.
+            </p>
+            <p class="intro-text">
+                NoteCrypt is designed to demonstarte best practices in application security by ensuring happens locally-**before** it ever leaves your machine, This modelminimizes trust in the server.
+            </p>
+            <h3 class="section-subheading">Client-Side Encryption Explained</h3>
+            <p class="feature-description">
+                Your notes are encrypted using a **secret key** right inside your web browser using JavaScript (known as client-side encryption).This encrypted bolb is what sent to our server,along with a secure key reference.We never handle the actual secret key required to decrypt the data.
+            </p>
+            <h3 class="section-subheading">The Zero-Knowledge Trust Model</h3>
+            <ul>
+                <li><strong>Key Isolation:</strong> The secret key stays with the user or the recipient.The NoteCrypt server operates under a **zero-knowledge policy**-we possess the encrypted data, but lack the key to read it.</li>
+                <li><strong>Man-in-Middle Defense:</strong>Even if a third party intercepts the data transmission to our server, they only get the meaningless encrypted text(ciphertext).With the original secret key, the data remains unreadable.</li>
+                 <li>**Educational Purposs:** This implementation serves as an educational model showing how to design systems where the service provider cannot access user data,even if complled to do so.</li>
+            </ul>
+            
+        </div>
+    </div>
+
+        <div class="container static-content-page">
+      <div class="feature-section">
+            <h2 class="feature-title" id="api-access">🔌 API Access</h2>
+            <p class="feature-description">
+                Integrate NoteCrypt's secure note-sharing functionality directly into your own applications, script, or workflows using our simple and secure API endpoints.
+            </p>
+            <p class="into-text">The NoteCrypt API is provided as a straightforward tool for developers and students to **learn about and expirement with ephemeral communication** integration in application and scripts.
+            </p>
+            <h3 class="section-subheading">Learning Through Integration</h3>
+            <p class="feature-description">
+                Our simple API endpoints allow you to integarte NoteCrypt's core functionality-create, encrypt,and share one-time notes-directly into your own scripts, apllication, or educational workflow demonstarations.This is perfect for testing webhook functionality or secure protocols.
+            </p>
+            <h3 class="section-subheading">Educational Use Cases</h3>
+            <ul>
+                <li>
+                    **Scripted Automation:** Automatically generate secure,temporary token or passwords for testing environments.
+                </li>
+                <li>
+                    **Integration Testing:** Practise secure data transfer between two applications using a self-destructing intermediary.
+                </li>
+                <li>
+                    **Rate Limiting Demonstartion:** The API includes basic rate liniting to teach user resource management and defensive programming.
+                </li>
+            </ul>
+            <p class="featuredescription">
+                **Disclaimer:** All API access is provided *solely* for **educational,testing, and non-commercial development purposes.** It is not intended for use in production environments handling rael-world sensitive data.
+            </p>
+        </div>
+    </div>
+
+    <div class="container static-content-page">
+        <div class="feature-section">
+            <h2 class="feature-title" id="time-expiry">⏱️ Configurable Time-Based Expiry</h2>
+            <p class="feature-description">
+                As a robust fail-safe, every note can be assigned a custom lifespan .If the recipient does not view the note within this time, the note is automatically and permanently destroyed.
+            </p>
+            <p class="intro-text">
+                This setting provides an extra layer of security, ensuring that sensitive information is not exposed indefinitely even if the recipient forgets to open the link.
+            </p>
+            <h3 class="section-subheading">How it Works</h3>
+            <p class="feature-description">
+                When craeting the note, you specify the**'Expire in Minutes'** value.Our server tracks this timer, and once it hits zero, the encrypted data and the link itself are permanently deleted from our database, rendering the link disabled.
+            </p>
+            <h3 class="section-subheading">Key Benefits</h3>
+            <ul>
+                <li><strong>Time-Sensitive Data:</strong>Perfect for time-bound information like temporary API keys, login tokens, or limited-access credentials.</li>
+                <li><strong>Fail-Safe Destruction:</strong>Guarantees destruction even in scenarios where the note is never accessed, fufilling the promise of ephemeral communication.</li>
+                <li><strong>User Control:</strong>Gives you full control over how long ypur note potentially accessible before it is automatically destroyed.</li>
+            </ul>
+        </div>
+    </div>
+       </div>
+</main>

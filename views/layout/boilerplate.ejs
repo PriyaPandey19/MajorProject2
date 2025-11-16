@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteCrypt - <%= typeof title !== 'undefined' ? title:"Secure Notes"%></title>
+    <link rel = "stylesheet" href="/CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/notecrypt_logo.ico?v=4">
+    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+       
+       <nav class="sidebar" id = "sidebarMenu">
+        <button class="close-btn" aria-label="Close Menu">×</button>
+        <div class="sidebar-content">
+            <div class="menu-section">
+                <h3>Features</h3>
+                <a href="/create">✨ Create New Note</a>
+                <a href="/features#auto-delete">Auto Delete</a>
+                <a href="/features#privacy-protection">Privacy Protection</a>
+                <a href="/features#api-access">API Access</a>
+                 
+            </div>
+
+            <div class="menu-section">
+                <h3>Support</h3>
+                <a href="/features">Documentation</a>
+                <a href="/create#faq">FAQ</a>
+                <a href="/create#contact-us">Contact us</a> 
+              
+                
+                
+            </div>
+
+            <div class="menu-section">
+                <h3>Company</h3>
+                <a href="/about#about-us">About Us</a>
+                  <a href="/about#disclaimer">Disclaimer</a>
+                <a href="/about#terms-of-services">Terms Of Services</a>
+
+            </div>
+        </div>
+       </nav>
+        <header class="navbar-container">
+            <div class="navbar-left">
+                <button class="menu-icon" aria-label="Open Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        <div class="navbar-center">
+            <span class="logo-icon" aria-label="App Logo"><i class="fas fa-shield-alt"></i>NoteCrypt</span>
+        </div>
+
+        <div class="navbar-right">
+            <button class="theme-toggle" aria-label="Toggle Dark Mode">&#x263D;</button>
+        </div>
+    </header>
+    <main>
+        <%- body %>
+        <%- include('footer'); %>
+    </main>
+    <script>
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        const themes =['theme-purple','theme-blue','theme-green','theme-yellow','theme-red'];
+        let currentThemeIndex = 0;
+
+        function applyTheme(index){
+            //remove all theme classes first
+            themes.forEach(theme => body.classList.remove(theme));
+
+            //apply the current theme class
+            body.classList.add(themes[index]);
+
+            //save the preference 
+            localStorage.setItem('themeIndex',index);
+        }
+
+        function cycleTheme(){
+            currentThemeIndex = (currentThemeIndex + 1)% themes.length;
+            applyTheme(currentThemeIndex);
+        }
+        const savedThemeIndex = localStorage.getItem('themeIndex');
+        if(savedThemeIndex != null){
+            currentThemeIndex = parseInt(savedThemeIndex);
+        }
+        applyTheme(currentThemeIndex);
+
+        themeToggle.addEventListener('click',cycleTheme);
+
+
+        //sidebar toggle logic
+        const menuButton = document.querySelector('.menu-icon');
+        const closeButton = document.querySelector('.close-btn');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        function toggleSidebar(){
+            sidebar.classList.toggle('open');
+            document.body.classList.toggle('sidebar-open');
+        }
+        if(menuButton){
+            menuButton.addEventListener('click',toggleSidebar);
+        }
+        if(closeButton){
+            closeButton.addEventListener('click',toggleSidebar);
+        }
+    </script>
+    
+</body>
+</html>
