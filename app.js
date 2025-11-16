@@ -32,7 +32,9 @@ app.get("/",(req,res) =>{
   res.redirect("/create");
 })
 
-
+app.get("/create", (req, res) => { 
+  res.render("create-note", { message: null, noteId: null });
+});
 app.get('/features',(req,res) =>{
   res.render('features',{title:'NoteCrypt Fetures'});
 });
