@@ -28,6 +28,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", noteRoutes);
 app.use("/pages", notePageRoutes);
+app.get("/",(req,res) =>{
+  res.redirect("/create");
+})
 app.get("/create", (req, res) => {
   res.render("create-note", { message: null, noteId: null });
 });
