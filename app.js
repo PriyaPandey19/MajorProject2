@@ -31,12 +31,8 @@ app.use("/pages", notePageRoutes);
 app.get("/",(req,res) =>{
   res.redirect("/create");
 })
-app.get("/create", (req, res) => {
-  res.render("create-note", { message: null, noteId: null });
-});
-app.get("/view-note",(req,res) =>{
-    res.render("view-note",{message:null, decryptedText:null});
-})
+
+
 app.get('/features',(req,res) =>{
   res.render('features',{title:'NoteCrypt Fetures'});
 });
@@ -50,7 +46,7 @@ mongoose
 .then(() => console.log("connected to MongoDB Atlas"))
 .catch((err) => console.error("MongoDB connect error:", err));
 
-app.use("/api/notes",noteRoutes);
+// app.use("/api/notes",noteRoutes);
 
 const PORT = process.env.PORT|| 3000;
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
