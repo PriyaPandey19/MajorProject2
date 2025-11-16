@@ -96,7 +96,7 @@ router.post("/create",async(req,res) =>{
 //     }
 // });
 
-router.get("/view/token", async(req, res) =>{
+router.get("/view/:token", async(req, res) =>{
     try {
         const { token } = req.params;
         
