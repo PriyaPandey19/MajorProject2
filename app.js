@@ -19,7 +19,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(expressLayouts);
 app.set('layout', 'layout/boilerplate');
-app.use(express.static("public"));
 
 //mongoose.connect("mongodb://127.0.0.1:27017/test");
 
@@ -29,6 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", noteRoutes);
 app.use("/pages", notePageRoutes);
+app.use(express.static("public"));
+
 
 app.get("/",(req,res) =>{
   res.redirect("/create");
