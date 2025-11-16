@@ -33,7 +33,14 @@ app.get("/",(req,res) =>{
 })
 
 app.get("/create", (req, res) => { 
-  res.render("create-note", { message: null, noteId: null });
+  const {success, token, secretKey, expireMinutes, host} = req.query;
+  let message = null;
+    let shareLink = null;
+    if(success && token && secretKey ){
+        message ="Note created successfully";
+        shareLink = `${decodeURIComponent(host)}/view/${token}`;
+    }
+  res.render("create-note", { message, shareLink, expireMinutes });
 });
 app.get('/features',(req,res) =>{
   res.render('features',{title:'NoteCrypt Fetures'});

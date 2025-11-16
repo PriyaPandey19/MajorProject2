@@ -10,31 +10,27 @@ const router = express.Router();
 
 //encrpt and store in mongo db
 
-router.get("/create",(req,res) =>{
-    const success = req.query.success;
-    const token = req.query.token;
-    const secretKey = req.query.secretKey;
-    const expireMinutes = req.query.expireMinutes;
-    const queryHost = req.query.host ? decodeURIComponent(req.query.host) : null;
+// router.get("/create",(req,res) =>{
+//     const success = req.query.success;
+//     const token = req.query.token;
+//     const secretKey = req.query.secretKey;
+//     const expireMinutes = req.query.expireMinutes;
+//     const queryHost = req.query.host ? decodeURIComponent(req.query.host) : null;
 
-    // const {success, token,secretKey,expireMinutes} = req.query;
-    // let message = null;
-    // let shareLink = null;
-    const currentHost = `${req.protocol}://${req.get("host")}`;
-    const finalHost = queryHost || currentHost;
+   
+//     const currentHost = `${req.protocol}://${req.get("host")}`;
+//     const finalHost = queryHost || currentHost;
 
-    let message = null;
-    let shareLink = null;
+//     let message = null;
+//     let shareLink = null;
 
-    if(success && token && secretKey ){
-        message ="Note created successfully";
-        shareLink = `${finalHost}/view/${token}`;
-        //shareLink=`${req.protocol}://${req.get("host")}/view/${token}`;
-     //shareLink = `${req.protocol}://${req.get("host")}/view/${token}`;
+//     if(success && token && secretKey ){
+//         message ="Note created successfully";
+//         shareLink = `${finalHost}/view/${token}`;
 
-    }
-     res.render("create-note", { message, shareLink,expireMinutes });
-});
+//     }
+//      res.render("create-note", { message, shareLink,expireMinutes });
+// });
 
 
 router.post("/create",async(req,res) =>{
