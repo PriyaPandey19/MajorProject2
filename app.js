@@ -26,12 +26,12 @@ app.use(express.static("public"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", noteRoutes);
-app.use("/pages", notePageRoutes);
+
+
+
 app.get("/",(req,res) =>{
   res.redirect("/create");
 })
-
 app.get("/create", (req, res) => { 
   const {success, token, secretKey, expireMinutes, host} = req.query;
   let message = null;
@@ -48,6 +48,10 @@ app.get('/features',(req,res) =>{
 app.get('/about',(req,res) =>{
   res.render('about',{title:'NoteCrypt Company Info'});
 })
+
+
+app.use("/", noteRoutes);
+app.use("/pages", notePageRoutes);
 
 
 mongoose
