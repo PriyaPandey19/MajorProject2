@@ -27,7 +27,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.use("/", noteRoutes);
+app.use("/pages", notePageRoutes);
 
 app.get("/",(req,res) =>{
   res.redirect("/create");
@@ -50,8 +51,7 @@ app.get('/about',(req,res) =>{
 })
 
 
-app.use("/", noteRoutes);
-app.use("/pages", notePageRoutes);
+
 
 
 mongoose
