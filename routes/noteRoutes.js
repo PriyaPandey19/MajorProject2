@@ -97,6 +97,7 @@ router.post("/create",async(req,res) =>{
 // });
 
 router.get("/view/:token", async(req, res) =>{
+    console.log("View route hit with token:",req.params.token);
     try {
         const { token } = req.params;
         
