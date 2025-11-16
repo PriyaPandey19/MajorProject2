@@ -39,7 +39,7 @@ app.get("/create", (req, res) => {
     let shareLink = null;
     if(success && token && secretKey ){
         message ="Note created successfully";
-        shareLink = `${decodeURIComponent(host)}/${token}`;
+        shareLink = `${decodeURIComponent(host)}/view/${token}`;
     }
   res.render("create-note", { message, shareLink, expireMinutes });
 });
