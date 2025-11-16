@@ -1,6 +1,6 @@
 import express from "express";
 import CryptoJS from "crypto-js";
-import Note from "../models/Note.js";
+import Note from "./models/Note.js";
 import { v4 as uuidv4 } from 'uuid';
 
 
