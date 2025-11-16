@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", noteRoutes);
 app.use("/pages", notePageRoutes);
-app.use(express.static("public"));
 
 
 
@@ -51,6 +50,7 @@ app.get('/features',(req,res) =>{
 app.get('/about',(req,res) =>{
   res.render('about',{title:'NoteCrypt Company Info'});
 })
+app.use(express.static("public"));
 
 
 
