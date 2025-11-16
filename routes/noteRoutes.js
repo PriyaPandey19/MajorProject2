@@ -100,8 +100,6 @@ router.get("/view/:token", async(req, res) =>{
     console.log("View route hit with token:",req.params.token);
     try {
         const { token } = req.params;
-        
-        // Use findOne() to check if the note exists (but don't decrypt here)
         const note = await Note.findOne({ token });
         
         if (!note) {
