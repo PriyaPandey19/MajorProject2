@@ -8,12 +8,16 @@ import notePageRoutes from "./routes/notePage.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { title } from "process";
+import helmet from "helmet";
 
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
 dotenv.config();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
