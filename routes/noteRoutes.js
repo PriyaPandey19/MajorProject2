@@ -40,23 +40,17 @@ router.post("/create",async(req,res) =>{
         if(!text || !secretKey){
             return res.status(400).json({message:"Text and security key are required"});
         }
+
+
         const encryptedText = CryptoJS.AES.encrypt(text,secretKey).toString();
         const expiresAt = new Date(Date.now() + expireMinutes * 60 *1000);
         const token = uuidv4();
+
         const note = new Note ({ encryptedText, expiresAt,token});
         await note.save();
+
         const finalHost = process.env.PUBLIC_URL;
-
       res.redirect(`/create?success=true&token=${token}&secretKey=${encodeURIComponent(secretKey)}&expireMinutes=${expireMinutes}&host=${encodeURIComponent(finalHost)}`);
-
-        
-       // const dynamicHost = `${req.protocol}://${req.get("host")}`;
-       // res.redirect(`/create?show_link=true`);
- //res.redirect(`/create?success=true&token=${token}&secretKey=${encodeURIComponent(secretKey)}&expireMinutes=${expireMinutes}`);
-   
-        // res.redirect(`/view-note?success=true&token=${note.token}`);
-        //res.redirect(`/view-note?noteId=${note._id}`);
-        //res.render("create-note", { message: "Note created successfully!", noteToken: note.token });
     }
     catch(err){
         console.log(err);
@@ -99,7 +93,7 @@ router.post("/create",async(req,res) =>{
 router.get("/view/:token", async(req, res) =>{
     console.log("View route hit with token:",req.params.token);
     try {
-        const { token } = req.params;
+        const token = decodeURIComponent(req.params.token);
         const note = await Note.findOne({ token });
         
         if (!note) {
@@ -152,10 +146,6 @@ router.post("/view",async(req,res) =>{
         res.render("view-note",{message:"Failed to retrieve note",decryptedText:null,noteId:req.body.noteId});
     }
 })
-
-// router.get("/test", (req, res) => {
-//   res.send("✅ Notes route working fine!");
-// });
 
 
 export default router;
