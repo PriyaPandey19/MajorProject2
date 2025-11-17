@@ -267,16 +267,14 @@
            alert("sharing cancelled or failed.Link copied to clipboard");
         }
        
-        // .then(() => console.log('Successful share'))
-        // .catch((error) =>{
-        //   console.log('Error sharing',error);
-        //   copyLink('shareLinkInput');
-        //   alert("Share dialog failed.The link has been copied to clipboard.");
-        // });
-    }else{
-        copyLink('shareLinkInput');
-        alert("Share dialog not supported.The link has been copied to your clipboard.");
     }
+    else {
+    const fullMessage = 'Secure Note: This link expires soon. Use the secret key to open it:\n\n' + link;
+
+    navigator.clipboard.writeText(fullMessage);
+
+    alert("Sharing is not supported on this device.\n\nMessage copied:\n\n" + fullMessage);
+}
    }
 
    </script>
